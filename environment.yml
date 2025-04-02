@@ -1,0 +1,26 @@
+name: suse
+channels:
+  - conda-forge
+dependencies:
+  # - aiofiles
+  # - aiohttp
+  # - black
+  # - geopandas
+  - ipykernel
+  - joblib
+  - matplotlib
+  - numpy      #=2.0 # Required due to numba not having 0.61
+  - openpyxl
+  - orjson     # Speed up  plotly
+  - pandas
+  - pip
+  - plotly
+  - pyarrow
+  # - pyogrio
+  - python-kaleido
+  - python=3.13
+  - scikit-learn
+  - scipy
+  - requests
+  - pip:
+    - -e .    # installs the pyproject.toml defined package "suse"
