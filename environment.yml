@@ -17,6 +17,7 @@ dependencies:
   - plotly
   - pyarrow
   # - pyogrio
+  - python-dotenv
   - python-kaleido
   - python=3.13
   - scikit-learn
