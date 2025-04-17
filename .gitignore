@@ -161,3 +161,4 @@ cython_debug/
 
 Hi3
 extension.txt
+data/solar/solar_data.parquet
