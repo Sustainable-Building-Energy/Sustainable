@@ -18,7 +18,7 @@ def download_solar_data(
 
     if show_url:
         print(request_url)
-    df = pd.read_csv(request_url, skiprows=2)
+    df = pd.read_csv(request_url, skiprows=2).rename(columns={'DNI':"DNI (W/m^2)", 'GHI':"GHI (W/m^2)"})
     df["Datetime"] = df[["Year", "Month", "Day", "Hour", "Minute"]].apply(
         lambda row: pd.Timestamp(
             year=row["Year"], month=row["Month"], day=row["Day"], hour=row["Hour"], minute=row["Minute"]
