@@ -72,9 +72,9 @@ def download_offshore_ca_wind_data(
 # --- Example Usage ---
 if __name__ == "__main__":
     df = download_offshore_ca_wind_data(
-        api_key="CtuencYMWEZYMBZLY3bufj1vbmbDGfNg0f7T6bgx",
+        api_key="CtuencYMWEZYMBZLY3bufj1vbmbDGfNg0f7Tcvdffr",
         wkt="POINT(-121.5 36.5)",  # Offshore California example location
-        email="aritro@utexas.edu",
+        email="asdfghjyt@utexus.edu",
         year="2017",
         show_url=True
     )
