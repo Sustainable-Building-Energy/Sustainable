@@ -17,7 +17,7 @@ def solve(unknowns,eqn_system):
     # eqn_system = equations3
     return eqn_system(n_c=n_c,U_L=U_L,T_c=T_c,n=n)
 
-def compute_panel_e(df,τα=0.75,NOCT=45.7,G_NOCT=800,n_ref=0.151,beta=0.0045,T_c_ref=25,n_MPPT=0.9,PV_A = 1.66,PV_n_panels = 16):
+def compute_panel_e(df,τα=0.75,NOCT=45.7,G_NOCT=800,n_ref=0.151,beta=0.0045,T_c_ref=25,n_MPPT=0.9,module_area = 1.66,PV_n_panels = 16,module_rated_W=250,install_cost_per_W=1.3,grid_price=0.125):
     """_summary_
 
     Parameters
@@ -48,6 +48,8 @@ def compute_panel_e(df,τα=0.75,NOCT=45.7,G_NOCT=800,n_ref=0.151,beta=0.0045,T_
     pd.DataFrame
         _description_
     """
+    print(f'\nSystem rated power: {PV_n_panels*module_rated_W/1000} kW')
+    print(f'Total install cost: ${PV_n_panels*module_rated_W*install_cost_per_W}')
 
     df = df.rename(columns={'Temperature':'Dry-bulb (C)'})
     # Prefill fixed values
@@ -73,13 +75,14 @@ def compute_panel_e(df,τα=0.75,NOCT=45.7,G_NOCT=800,n_ref=0.151,beta=0.0045,T_
             T_a=row['Dry-bulb (C)'],   #iter
         )
         df.loc[row_num,['PV_n_c','PV_U_L','PV_T_c','PV_n']]=fsolve(solve,x0=x0,args=(equations3))    
-    df['PV_W_e']=df['G_T_fixed']*(PV_n_panels*PV_A)*df['PV_n']
+    df['PV_W_e']=df['G_T_fixed']*(PV_n_panels*module_area)*df['PV_n']
 
     PV_monthly_sum = df['PV_W_e'].sum()
-    PV_savings = PV_monthly_sum/1000*0.125
+    PV_savings = PV_monthly_sum/1000*grid_price
     PV_avg_n = df['PV_n'].mean()
 
-    print(f'Total PV Electricity: {round(PV_monthly_sum)} W')
+    # print(f'Total PV Electricity: {round(PV_monthly_sum)} W')
+    print(f'Total PV Electricity: {round(PV_monthly_sum/1000)} kWh/yr')
     print(f'Total Energy Savings: ${round(PV_savings,2)} ')
     print(f'Avg Efficiency: {round(PV_avg_n,3)}')
     return df
