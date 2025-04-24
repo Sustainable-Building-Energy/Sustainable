@@ -9,6 +9,7 @@ dependencies:
   - ipykernel
   - joblib
   - matplotlib
+  - nbformat
   - numpy      #=2.0 # Required due to numba not having 0.61
   - openpyxl
   - orjson     # Speed up  plotly

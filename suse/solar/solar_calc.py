@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+# https://www.nrel.gov/hpc/nsrdb-dataset
 # Reimplement trig functions to accept degrees
 def sin(value):
     return np.sin(np.deg2rad(value))
@@ -43,6 +44,7 @@ def get_diffuse(GHI, Gb):
 def get_tot_incid_rad(Gbt, Gd, slope, grd_reflect, GHI):
     return Gbt + Gd * ((1 + cos(slope)) / 2) + grd_reflect * GHI * ((1 - cos(slope)) / 2)
 
+
 def compute_environmental_params(df,*,lon,lat):
     L_st = round(lon/15)*15
     L_loc = lon
@@ -54,4 +56,26 @@ def compute_environmental_params(df,*,lon,lat):
     df["G_b"] = get_beam_horiz(df["DNI (W/m^2)"], df["θz"])
     df["G_d"] = get_diffuse(df["GHI (W/m^2)"], df["G_b"])
     # df["θ"] = get_incid_angle(lat=lat, slope=slope, declin=df["δ"], solar_hour=df["ω"])
+    return df
+
+##### Panel Specific calculations
+def get_beam_incid(Gbn, incid_angle):
+    return Gbn * cos(incid_angle)
+
+def get_tot_incid_rad(Gbt, Gd, slope, grd_reflect, GHI):
+    return Gbt + Gd * ((1 + cos(slope)) / 2) + grd_reflect * GHI * ((1 - cos(slope)) / 2)
+
+    
+def compute_panel_radiation(df,lat,slope,grd_reflect):
+    df["θ"] = get_incid_angle(lat=lat, slope=slope, declin=df["δ"], solar_hour=df["ω"])
+    # For fiY2ed panel
+    df["G_bt_fixed"] = get_beam_incid(df["DNI (W/m^2)"], df["θ"])
+    df.loc[df["θ"] > 90, "G_bt_fixed"] = 0  # Incident beam is zero at theta>90
+    df["G_T_fixed"] = get_tot_incid_rad(
+        Gbt=df["G_bt_fixed"], Gd=df["G_d"], slope=slope, grd_reflect=grd_reflect, GHI=df["GHI (W/m^2)"]
+    )
+    fixed_panel_monthly = df["G_T_fixed"].sum()
+    print(
+        f"Total Monthly Radiation:\nFixed Panel: {round(fixed_panel_monthly)} Wh/m2"
+    )
     return df
