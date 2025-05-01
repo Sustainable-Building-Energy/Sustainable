@@ -10,10 +10,11 @@ def download_solar_data(
     email,
     year,
     show_url=False,
-    attributes="dhi,ghi,dni,alpha,solar_zenith_angle",
-    url="https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-conus-v4-0-0-download.csv?"
+    attributes="air_temperature,dhi,ghi,dni,surface_albedo,solar_zenith_angle",
+    url="https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-conus-v4-0-0-download.csv?",
+    utc=False,
 ):
-    query = {"api_key": api_key, "wkt": wkt, "attributes": attributes, "names": year, "email": email}
+    query = {"api_key": api_key, "wkt": wkt, "attributes": attributes, "names": year, "email": email,'utc':str(utc).lower()}
     request_url = url + urlencode(query)
 
     if show_url:
@@ -25,4 +26,5 @@ def download_solar_data(
         ),
         axis=1,
     )
+    df = df.set_index("Datetime",drop=False)
     return df
