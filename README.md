@@ -9,5 +9,5 @@ The main entry points for each section of the project are as follows:
 |LA Demand: |LADWP_electricity.ipynb  |
 |Wind: |suse/wind/wind_calc.py  |
 |Solar: |notebooks/1.0-nrel_solar_api.ipynb  |
-|Economics: |2.0-economic.ipynb|
+|Economics: |notebooks/2.0-economic.ipynb|
 
