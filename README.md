@@ -14,11 +14,12 @@ The main entry points for each section of the project are as follows:
 # Requirements
 Refer to the list of packages in [environment.yml](environment.yml). 
 
-To utilize the NREL API, please register for an api key. Then create a file with the fullname `.env` in the top folder of this repo with the following contents:
+To utilize the NREL API, please [register](https://developer.nrel.gov/signup/) for an api key. Then create a file with the fullname `.env` in the top folder of this repo (after cloning) with the following contents:
 ```
 NREL_API_KEY="your_api_key"
 EMAIL="your_email@gmail.com"
 ```
+Your `.env` will stay on your own computer and will not be commited online.
 
 # Installation
 
