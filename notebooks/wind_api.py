@@ -16,7 +16,7 @@ DATA_DIR = r'G:\My Drive\UT_Austin_MSSD\Semester 2\03 Sustainable Energy for Bui
 # Input options
 lat = 36.5
 lon = -122.5
-year = "2017"  # Change this value to fetch data for different years
+year = "2019"  # Change this value to fetch data for different years
 wind_file = f'{DATA_DIR}/wind_data_{year}.parquet'
 
 geometry = f"POINT ({lon} {lat})"

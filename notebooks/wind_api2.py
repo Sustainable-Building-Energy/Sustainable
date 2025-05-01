@@ -76,7 +76,7 @@ def download_offshore_gl_wind_data(
     email,
     year,
     show_url=False,
-    attributes="windspeed_80m,windspeed_100m,windspeed_120m,winddirection_80m,winddirection_100m,winddirection_120m",
+    attributes="windspeed_100m,windspeed_120m,windspeed_140m,winddirection_100m,winddirection_120m,winddirection_140m",
     interval=5,
     utc=True,
     leap_day=False,
@@ -136,9 +136,9 @@ def download_offshore_gl_wind_data(
 if __name__ == "__main__":
     year = "2019"
     df = download_offshore_ca_wind_data(
-        api_key="CtuencYMWEZYMBZLY3bufj1vbmbDGfNg0f7T6",
-        wkt="POINT(-121.5 34.12)", #Offshore California location
-        email="arigf@texus.edu",
+        api_key="CtucYMWEZYMBZLY3bufj1vbmbDGfNg0f7T6bgx",
+        wkt="POINT(-121.5 34.12)", #Offshore California location -121.5 34.12
+        email="atro@texas.edu",
         year=year,
         show_url=True
     )
