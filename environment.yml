@@ -20,7 +20,7 @@ dependencies:
   # - pyogrio
   - python-dotenv
   - python-kaleido
-  - python=3.11
+  - python=3.13
   - scikit-learn
   - scipy
   - requests
